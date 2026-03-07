@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import Quagga from 'quagga';
+import Quagga, { QuaggaJSResult } from 'quagga';
 import { Camera, Search, ShieldCheck, Info, Carrot, AlertTriangle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -53,11 +53,10 @@ export default function ScannerPanel() {
             },
             decoder: {
                 readers: ["ean_reader", "ean_8_reader", "upc_reader", "upc_e_reader", "code_128_reader", "code_39_reader"],
-                locate: true
             },
             locate: true,
             numOfWorkers: 2,
-        }, (err: any) => {
+        }, (err: Error | null) => {
             if (err) {
                 console.error(err);
                 setIsScanning(false);
@@ -66,7 +65,7 @@ export default function ScannerPanel() {
             Quagga.start();
         });
 
-        Quagga.onDetected((result: any) => {
+        Quagga.onDetected((result: QuaggaJSResult) => {
             const code = result.codeResult.code;
             if (code && code !== lastCodeRef.current) {
                 lastCodeRef.current = code;

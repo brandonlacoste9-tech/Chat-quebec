@@ -1,5 +1,5 @@
 declare module "quagga" {
-  interface QuaggaJSConfig {
+  export interface QuaggaJSConfig {
     inputStream?: {
       name?: string;
       type?: string;
@@ -52,22 +52,22 @@ declare module "quagga" {
     debug?: boolean;
   }
 
-  interface QuaggaJSResult {
-    codeResult?: {
-      code?: string;
-      format?: string;
-      start?: number;
-      end?: number;
-      codeset?: number;
-      startHex?: string;
-      endHex?: string;
-      decodedCodes?: any[];
+  export interface QuaggaJSResult {
+    codeResult: {
+      code: string;
+      format: string;
+      start: number;
+      end: number;
+      codeset: number;
+      startHex: string;
+      endHex: string;
+      decodedCodes: any[];
     };
-    line?: { x: number; y: number }[];
-    angle?: number;
-    pattern?: number[];
-    box?: any[];
-    boxes?: any[];
+    line: { x: number; y: number }[];
+    angle: number;
+    pattern: number[];
+    box: any[];
+    boxes: any[];
   }
 
   export function init(
