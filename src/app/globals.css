@@ -135,51 +135,16 @@ body {
 }
 
 .glass-card {
-  @apply bg-surface/50 backdrop-blur-xl border border-white/10 shadow-2xl;
+  @apply bg-surface-2 border border-border shadow-xl;
 }
 
-/* PREMIUM ACCENTS ONLY */
-.leather-pro {
-  background-image: 
-    linear-gradient(rgba(185, 28, 28, 0.8), rgba(153, 27, 27, 0.95)),
-    url("/leather-premium.png");
-  background-size: 100px;
-  background-repeat: repeat;
-  position: relative;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+/* CLEAN MODERN ACCENTS */
+.btn-primary {
+  @apply bg-qblue hover:bg-qblue-bright text-white shadow-lg transition-all active:scale-95;
 }
 
-.leather-dark {
+.sidebar-bg {
   @apply bg-surface;
-  background-image: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
-}
-
-.stitched-gold {
-  position: relative;
-  border: 1px solid #d4af37;
-}
-
-.stitched-gold::after {
-  content: "";
-  position: absolute;
-  inset: 2px;
-  border: 1px dashed rgba(212, 175, 55, 0.4);
-  border-radius: inherit;
-  pointer-events: none;
-}
-
-.stitched-subtle {
-  position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.stitched-subtle::after {
-  content: "";
-  position: absolute;
-  inset: 2px;
-  border: 1px dashed rgba(255, 255, 255, 0.05);
-  border-radius: inherit;
-  pointer-events: none;
 }
 
 .flag-strip {

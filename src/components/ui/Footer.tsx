@@ -5,27 +5,25 @@ import { ShieldCheck, Info } from 'lucide-react';
 
 export default function Footer() {
     return (
-        <footer className="w-full py-4 px-6 border-t border-border bg-surface text-[10px] text-text-dim flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex flex-col gap-1">
+        <footer className="w-full py-6 px-8 border-t border-border bg-surface text-[11px] text-text-dim flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex flex-col gap-2">
                 <div className="font-bold text-text uppercase tracking-widest flex items-center gap-2">
-                    Québec AI OS
+                    Québec AI
                 </div>
-                <div className="flex items-center gap-3">
-                    <span>Montréal, QC, Canada</span>
-                    <span className="w-1 h-1 bg-border rounded-full" />
-                    <span>(514) 555-0123</span>
-                    <span className="w-1 h-1 bg-border rounded-full" />
-                    <span>support@chat-quebec.ca</span>
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+                    <span className="opacity-70">Montréal, QC, Canada</span>
+                    <span className="opacity-70">(514) 555-0123</span>
+                    <span className="opacity-70">support@chat-quebec.ca</span>
                 </div>
             </div>
 
-            <div className="flex items-center gap-6">
-                <div className="flex items-center gap-1.5 font-bold uppercase tracking-widest">
-                    <ShieldCheck size={12} className="text-success" />
-                    Loi 25 - Souveraineté Totale
+            <div className="flex flex-wrap items-center gap-6 justify-center">
+                <div className="flex items-center gap-2 font-bold uppercase tracking-wider text-text/60">
+                    <ShieldCheck size={14} className="text-success" />
+                    Conforme Loi 25
                 </div>
-                <div className="flex items-center gap-1.5 opacity-60">
-                    <Info size={12} />
+                <div className="flex items-center gap-2 opacity-50 font-bold uppercase tracking-wider">
+                    <Info size={14} />
                     Mis à jour : Mars 2026
                 </div>
             </div>
