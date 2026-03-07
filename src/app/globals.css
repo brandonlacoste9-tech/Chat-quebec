@@ -11,27 +11,27 @@
 }
 
 :root {
-  --bg: #08090d;
-  --surface: #0f1117;
-  --surface2: #161922;
-  --surface3: #1e2230;
-  --border: rgba(255, 255, 255, 0.07);
-  --border-bright: rgba(255, 255, 255, 0.14);
+  --bg: #0a0a0a;
+  --surface: #050505;
+  --surface2: #141414;
+  --surface3: #1a1a1a;
+  --border: rgba(255, 255, 255, 0.05);
+  --border-bright: rgba(255, 255, 255, 0.1);
   --qblue: #1d4ed8;
   --qblue-bright: #3b82f6;
   --qblue-glow: rgba(59, 130, 246, 0.15);
   --gold: #f59e0b;
   --gold-dim: rgba(245, 158, 11, 0.15);
-  --text: #e8eaf0;
-  --text-dim: #6b7280;
-  --text-muted: #374151;
-  --accent: #60a5fa;
+  --text: #ffffff;
+  --text-dim: #9ca3af;
+  --text-muted: #4b5563;
+  --accent: #3b82f6;
   --success: #10b981;
   --danger: #ef4444;
-  --sidebar-w: 260px;
-  --font-display: "Syne", sans-serif;
+  --sidebar-w: 280px;
+  --font-display: "DM Sans", sans-serif;
   --font-body: "DM Sans", sans-serif;
-  --radius: 12px;
+  --radius: 16px;
 }
 
 @theme inline {
@@ -39,7 +39,6 @@
   --color-foreground: var(--text);
   --font-sans: var(--font-body);
   --font-display: var(--font-display);
-
   --color-qblue: var(--qblue);
   --color-qblue-bright: var(--qblue-bright);
   --color-surface: var(--surface);
@@ -47,6 +46,8 @@
   --color-surface-3: var(--surface3);
   --color-border: var(--border);
   --color-border-bright: var(--border-bright);
+  --color-danger: var(--danger);
+  --color-success: var(--success);
 }
 
 * {
@@ -59,135 +60,35 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: 15px;
+  line-height: normal;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-@keyframes blink {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-}
-
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-@keyframes pulse-dot {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.4);
-    opacity: 0.6;
-  }
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes glow-pulse {
-  0%,
-  100% {
-    box-shadow: 0 0 20px var(--qblue-glow);
-  }
-  50% {
-    box-shadow: 0 0 35px rgba(59, 130, 246, 0.25);
-  }
-}
-
-/* Custom Utilities */
 .glass {
-  background: rgba(15, 17, 23, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border);
 }
 
-.glass-card {
-  @apply bg-surface-2 border border-border shadow-xl;
+.scrollbar-thin::-webkit-scrollbar {
+  width: 5px;
 }
 
-/* CLEAN MODERN ACCENTS */
-.btn-primary {
-  @apply bg-qblue hover:bg-qblue-bright text-white shadow-lg transition-all active:scale-95;
-}
-
-.sidebar-bg {
-  @apply bg-surface;
-}
-
-.flag-strip {
-  height: 3px;
-  background: linear-gradient(
-    90deg,
-    #003893 0%,
-    #003893 33%,
-    white 33%,
-    white 66%,
-    #003893 66%,
-    #003893 100%
-  );
-  flex-shrink: 0;
-}
-
-.typing-cur {
-  display: inline-block;
-  width: 2px;
-  height: 1em;
-  background: var(--accent);
-  margin-left: 2px;
-  vertical-align: text-bottom;
-  animation: blink 1s step-end infinite;
-}
-
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-::-webkit-scrollbar-track {
+.scrollbar-thin::-webkit-scrollbar-track {
   background: transparent;
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--surface3);
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--text-dim);
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }

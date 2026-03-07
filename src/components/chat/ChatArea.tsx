@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useEffect } from 'react';
-import { Menu, Zap, Sparkles, MessageCircle } from 'lucide-react';
+import { Menu, Zap, Sparkles } from 'lucide-react';
 import { useChatStore } from '@/lib/store';
 import { MessageBubble } from './MessageBubble';
 import { AgentType } from '@/types/chat';
@@ -41,47 +41,49 @@ export const ChatArea = () => {
     };
 
     return (
-        <div className="flex-1 flex flex-col min-w-0 bg-background relative overflow-hidden">
-            {/* Minimal Header */}
-            <header className="h-[64px] border-b border-border px-6 flex items-center gap-4 bg-surface-2 z-20 shrink-0">
-                {!sidebarOpen && (
-                    <button
-                        onClick={toggleSidebar}
-                        className="p-2 -ml-2 text-text-dim hover:text-text hover:bg-surface-3 rounded-xl transition-all"
-                    >
-                        <Menu size={20} />
-                    </button>
-                )}
+        <div className="flex-1 flex flex-col min-w-0 bg-[#0a0a0a] relative">
+            {/* Header Area */}
+            <header className="h-[60px] border-b border-white/5 px-6 flex items-center justify-between bg-[#0a0a0a]/80 backdrop-blur-xl z-20 sticky top-0">
+                <div className="flex items-center gap-4 min-w-0">
+                    {!sidebarOpen && (
+                        <button
+                            onClick={toggleSidebar}
+                            className="p-2 -ml-2 text-white/40 hover:text-white hover:bg-white/5 rounded-lg transition-all"
+                        >
+                            <Menu size={20} />
+                        </button>
+                    )}
 
-                <div className="flex items-center gap-2">
-                    <span className="text-xl shrink-0">{currentAgent.emoji}</span>
-                    <h2 className="text-[14px] font-bold text-text tracking-tight uppercase">
-                        {currentAgent.name}
-                    </h2>
+                    <div className="flex items-center gap-2.5 overflow-hidden">
+                        <span className="text-xl shrink-0">{currentAgent.emoji}</span>
+                        <h2 className="text-sm font-bold text-white truncate uppercase tracking-widest leading-none">
+                            {currentAgent.name}
+                        </h2>
+                    </div>
                 </div>
 
-                <div className="ml-auto flex items-center gap-4">
-                    <div className="hidden sm:flex items-center gap-2 text-[10px] text-text-dim font-bold tracking-widest uppercase bg-surface-3 px-3 py-1.5 rounded-full border border-border">
-                        <div className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
-                        <span>SOUVERAIN-1-PRO</span>
+                <div className="hidden sm:flex items-center gap-4">
+                    <div className="flex items-center gap-2 text-[10px] text-white/20 font-bold uppercase tracking-widest border border-white/5 px-3 py-1.5 rounded-full shrink-0">
+                        <div className="w-1.5 h-1.5 rounded-full bg-qblue-bright animate-pulse" />
+                        Souverain-1-Pro
                     </div>
                 </div>
             </header>
 
             {/* Messages Area */}
-            <div className="flex-1 overflow-y-auto pt-4 pb-12 scrollbar-thin">
+            <div className="flex-1 overflow-y-auto pt-6 pb-12 scrollbar-thin">
                 {messages.length === 0 ? (
-                    <div className="h-full flex flex-col items-center justify-center p-8 max-w-[800px] mx-auto text-center animate-in fade-in duration-700">
-                        <div className="w-16 h-16 bg-qblue rounded-2xl flex items-center justify-center shadow-xl mb-8 group transition-transform hover:scale-105">
-                            <span className="text-3xl">⚜️</span>
+                    <div className="h-full flex flex-col items-center justify-center p-8 max-w-[800px] mx-auto text-center animate-in fade-in duration-500">
+                        <div className="w-16 h-16 bg-[#1a1a1a] rounded-2xl flex items-center justify-center border border-white/5 mb-8 shadow-2xl">
+                            <span className="text-3xl text-white">⚜️</span>
                         </div>
 
-                        <h1 className="font-sans text-3xl font-black text-white mb-4 tracking-tight leading-tight uppercase underline decoration-qblue decoration-4 underline-offset-8 decoration-dotted">
-                            Bonjour! Comment puis-je vous aider aujourd&apos;hui?
+                        <h1 className="text-4xl font-extrabold text-white mb-4 tracking-tight leading-tight">
+                            Bonjour! Comment puis-je vous aider?
                         </h1>
 
-                        <p className="text-text-dim text-[16px] max-w-[480px] mb-12 font-medium">
-                            {currentAgent.desc}. Posez-moi vos questions sur le Québec, sa culture ou ses services publics.
+                        <p className="text-white/40 text-[16px] max-w-[480px] mb-12 font-medium">
+                            {currentAgent.desc}. Posez-moi vos questions sur le Québec ou ses services publics.
                         </p>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full px-4">
@@ -93,16 +95,16 @@ export const ChatArea = () => {
                             ].map((s, i) => (
                                 <button
                                     key={i}
-                                    className="p-5 text-left text-[14px] text-text-dim font-bold bg-surface-2 border border-border rounded-xl hover:bg-surface-3 hover:border-qblue/40 hover:text-text-bright transition-all group shadow-sm flex items-center justify-between"
+                                    className="p-4 text-left text-[14px] text-white/60 font-medium bg-white/5 border border-white/5 rounded-xl hover:bg-white/10 hover:text-white transition-all group shadow-sm flex items-center justify-between"
                                 >
                                     <span>{s}</span>
-                                    <Sparkles size={16} className="text-qblue opacity-40 group-hover:opacity-100 transition-opacity" />
+                                    <Sparkles size={14} className="text-qblue opacity-40 group-hover:opacity-100 transition-opacity" />
                                 </button>
                             ))}
                         </div>
                     </div>
                 ) : (
-                    <div className="w-full max-w-[850px] mx-auto px-4 sm:px-6 space-y-8 pb-12">
+                    <div className="w-full max-w-[800px] mx-auto px-4 sm:px-6 space-y-10 pb-8 mt-4">
                         {messages.map((msg) => (
                             <MessageBubble
                                 key={msg.id}
