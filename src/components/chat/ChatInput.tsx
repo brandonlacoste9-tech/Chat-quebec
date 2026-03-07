@@ -7,9 +7,10 @@ import { useChatStore } from '@/lib/store';
 interface ChatInputProps {
     onSend: (text: string) => void;
     onStop: () => void;
+    disabled?: boolean;
 }
 
-export const ChatInput: React.FC<ChatInputProps> = ({ onSend, onStop }) => {
+export const ChatInput: React.FC<ChatInputProps> = ({ onSend, onStop, disabled }) => {
     const [input, setInput] = React.useState('');
     const { isStreaming } = useChatStore();
     const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -22,7 +23,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSend, onStop }) => {
     }, [input]);
 
     const handleSend = () => {
-        if (input.trim() && !isStreaming) {
+        if (input.trim() && !isStreaming && !disabled) {
             onSend(input);
             setInput('');
         }
@@ -37,7 +38,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSend, onStop }) => {
 
     return (
         <div className="w-full max-w-[800px] mx-auto px-4 pb-6">
-            <div className="relative glass border-border-bright rounded-[20px] shadow-2xl overflow-hidden transition-all duration-300 focus-within:border-accent/40 focus-within:ring-4 focus-within:ring-qblue-glow">
+            <div className="relative glass border-border-bright rounded-[24px] shadow-2xl overflow-hidden transition-all duration-300 focus-within:border-accent/40 focus-within:ring-4 focus-within:ring-qblue-glow">
                 <textarea
                     ref={textareaRef}
                     value={input}
@@ -46,7 +47,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSend, onStop }) => {
                     placeholder="Posez votre question... (Shift+Entrée pour nouvelle ligne)"
                     className="w-full bg-transparent border-none focus:ring-0 text-text p-5 pr-14 resize-none min-h-[60px] max-h-[180px] scrollbar-none text-[15px] placeholder:text-text-muted transition-all"
                     rows={1}
-                    disabled={isStreaming}
+                    disabled={isStreaming || disabled}
                 />
 
                 <div className="flex items-center justify-between px-4 pb-3">
@@ -69,17 +70,18 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSend, onStop }) => {
                         {isStreaming ? (
                             <button
                                 onClick={onStop}
-                                className="w-9 h-9 bg-danger hover:bg-red-600 text-white rounded-xl flex items-center justify-center transition-all shadow-lg shadow-danger/20 animate-pulse"
+                                className="w-10 h-10 bg-danger hover:bg-red-600 text-white rounded-xl flex items-center justify-center transition-all shadow-lg shadow-danger/20 animate-pulse"
                             >
                                 <Square size={16} fill="white" />
                             </button>
                         ) : (
                             <button
                                 onClick={handleSend}
-                                disabled={!input.trim()}
-                                className="w-9 h-9 bg-qblue hover:bg-qblue-bright text-white rounded-xl flex items-center justify-center transition-all shadow-lg shadow-qblue/20 disabled:bg-surface-3 disabled:text-text-muted disabled:shadow-none translate-y-0 active:scale-95"
+                                disabled={!input.trim() || isStreaming || disabled}
+                                className="w-12 h-12 leather-pro stitched-gold hover:scale-105 active:scale-95 rounded-2xl flex items-center justify-center transition-all disabled:opacity-30 shadow-2xl group overflow-hidden"
                             >
-                                <Send size={18} />
+                                <div className="absolute inset-0 bg-gradient-to-tr from-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                                <Send size={20} className="text-bg font-bold group-hover:rotate-12 transition-transform" />
                             </button>
                         )}
                     </div>

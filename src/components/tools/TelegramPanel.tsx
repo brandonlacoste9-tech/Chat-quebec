@@ -53,7 +53,7 @@ export default function TelegramPanel() {
     return (
         <div className="absolute inset-0 flex overflow-hidden">
             {/* Configuration Sidebar */}
-            <div className="w-[320px] min-w-[320px] bg-surface border-r border-border flex flex-col overflow-hidden text-text">
+            <div className="w-[320px] min-w-[320px] leather-dark border-r border-border flex flex-col overflow-hidden text-text shadow-2xl">
                 <div className="p-4 border-b border-border">
                     <h1 className="font-display font-extrabold text-lg text-text tracking-tight flex items-center gap-2">
                         <div className="w-6 h-6 bg-qblue-bright rounded-full flex items-center justify-center text-[10px] text-white">✈️</div>

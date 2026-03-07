@@ -128,7 +128,7 @@ export default function ScannerPanel() {
 
     return (
         <div className="absolute inset-0 flex">
-            <div className="w-[340px] min-w-[340px] bg-surface border-r border-border flex flex-col overflow-hidden">
+            <div className="w-[320px] min-w-[320px] leather-dark border-r border-border flex flex-col overflow-hidden text-text shadow-2xl">
                 <div className="p-4 border-b border-border">
                     <h1 className="font-display font-extrabold text-lg text-text tracking-tight">📦 Épicerie Québec</h1>
                     <p className="text-[11px] text-text-dim mt-1">Analyse nutritionnelle instantanée · Open Food Facts</p>

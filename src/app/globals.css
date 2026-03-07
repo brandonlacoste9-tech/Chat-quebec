@@ -134,6 +134,56 @@ body {
   border: 1px solid var(--border);
 }
 
+.glass-card {
+  @apply bg-[rgba(15,17,23,0.7)] backdrop-blur-xl border border-[rgba(255,255,255,0.08)] shadow-[0_8px_32px_rgba(0,0,0,0.4)];
+}
+
+/* PRO MAX LEATHER & GOLD STITCHING */
+.leather-pro {
+  background-image: url("/leather-premium.png");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.leather-dark {
+  background-image:
+    linear-gradient(rgba(8, 9, 13, 0.85), rgba(8, 9, 13, 0.85)),
+    url("/leather-texture.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.stitched-gold {
+  position: relative;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.stitched-gold::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border: 1px dashed rgba(212, 175, 55, 0.5);
+  border-radius: inherit;
+  pointer-events: none;
+  mask-image: linear-gradient(to right, black 4px, transparent 4px);
+  mask-size: 8px 100%;
+}
+
+.stitched-red {
+  position: relative;
+  border: 1px solid rgba(220, 38, 38, 0.3);
+}
+
+.stitched-red::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border: 1px dashed rgba(220, 38, 38, 0.5);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
 .flag-strip {
   height: 3px;
   background: linear-gradient(

@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Search, Navigation, Smile, X, Compass } from 'lucide-react';
+import { Navigation, Smile, X, Compass } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 // fix for leaflet icons
@@ -32,7 +32,7 @@ export default function MapPanel() {
     const [to, setTo] = useState('');
     const [isRouting, setIsRouting] = useState(false);
     const [stats, setStats] = useState<{ dist: string; time: string } | null>(null);
-    const [steps, setSteps] = useState<any[]>([]);
+    const [steps, setSteps] = useState<any[]>([]); // OSRM Step type is complex, keeping any for now but with explicit note
     const [pinMode, setPinMode] = useState<{ active: boolean; emoji: string | null }>({ active: false, emoji: null });
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
     const [activeEmojiCat, setActiveEmojiCat] = useState(0);
@@ -115,7 +115,7 @@ export default function MapPanel() {
             const route = d.routes[0];
             if (routeLineRef.current && mapRef.current) mapRef.current.removeLayer(routeLineRef.current);
 
-            const coords = route.geometry.coordinates.map((c: any) => [c[1], c[0]]);
+            const coords = route.geometry.coordinates.map((c: [number, number]) => [c[1], c[0]]);
             if (mapRef.current) {
                 routeLineRef.current = L.polyline(coords, { color: '#3b82f6', weight: 5, opacity: 0.85, lineCap: 'round', lineJoin: 'round' }).addTo(mapRef.current);
                 mapRef.current.fitBounds(L.latLngBounds([fCoords as [number, number], tCoords as [number, number]]), { padding: [50, 50] });
@@ -138,7 +138,7 @@ export default function MapPanel() {
     return (
         <div className="absolute inset-0 flex">
             {/* Sidebar */}
-            <div className="w-[300px] min-w-[300px] bg-surface border-r border-border flex flex-col z-10">
+            <div className="w-[300px] min-w-[300px] leather-dark border-r border-border flex flex-col z-10 shadow-2xl">
                 <div className="p-3 border-b border-border space-y-2">
                     <div className="relative">
                         <div className="absolute left-3 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-success shadow-[0_0_6px_rgba(16,185,129,0.5)]" />
