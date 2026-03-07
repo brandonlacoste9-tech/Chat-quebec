@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useRef, useEffect } from 'react';
-import { Sparkles } from 'lucide-react';
 import { useChatStore } from '@/lib/store';
 import { MessageBubble } from './MessageBubble';
 import { AgentType } from '@/types/chat';
@@ -61,27 +60,6 @@ export const ChatArea = () => {
                             <h1 className="text-5xl font-black text-white mb-6 tracking-tighter uppercase leading-[1.1]">
                                 Comment puis-je vous aider?
                             </h1>
-
-                            <p className="text-white/30 text-[17px] max-w-[500px] mb-14 font-medium leading-relaxed leading-normal">
-                                {currentAgent.desc}. Posez-moi vos questions sur le Québec.
-                            </p>
-
-                            <div className="flex flex-col gap-4 w-full max-w-[420px]">
-                                {[
-                                    "C'est quoi le processus de CSQ?",
-                                    "Explique-moi le CÉLIAPP en détail",
-                                    "Meilleurs sentiers SEPAQ en hiver",
-                                    "Comment fonctionne le R-Score?",
-                                ].map((s, i) => (
-                                    <button
-                                        key={i}
-                                        className="w-full p-5 text-center text-[14px] text-white/40 font-bold bg-white/[0.03] border border-white/5 rounded-2xl hover:bg-white/10 hover:text-white transition-all group flex items-center justify-center gap-3"
-                                    >
-                                        <span>{s}</span>
-                                        <Sparkles size={16} className="text-qblue opacity-40 group-hover:opacity-100 transition-opacity" />
-                                    </button>
-                                ))}
-                            </div>
                         </div>
                     ) : (
                         <div className="space-y-12 pb-12 w-full">
