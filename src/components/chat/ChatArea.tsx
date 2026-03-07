@@ -58,7 +58,7 @@ export const ChatArea = () => {
                             </div>
 
                             <h1 className="text-5xl font-black text-white mb-6 tracking-tighter uppercase leading-[1.1]">
-                                Comment puis-je vous aider?
+                                COMMENT PUIS-JE VOUS AIDER?
                             </h1>
                         </div>
                     ) : (
