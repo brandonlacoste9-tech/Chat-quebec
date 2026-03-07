@@ -3,7 +3,6 @@
 import React, { useRef, useEffect } from 'react';
 import { Send, Square, Mic, Paperclip } from 'lucide-react';
 import { useChatStore } from '@/lib/store';
-import { cn } from '@/lib/utils';
 
 interface ChatInputProps {
     onSend: (text: string) => void;
@@ -38,7 +37,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSend, onStop, disabled }
     };
 
     return (
-        <div className="w-full max-w-[850px] mx-auto px-6 pb-6 pt-2">
+        <div className="w-full max-w-[800px] mx-auto px-6 pb-6 pt-2">
             <div className="relative bg-[#1a1a1a] border border-white/10 rounded-[28px] shadow-2xl overflow-hidden focus-within:border-qblue-bright/30 transition-all">
                 <textarea
                     ref={textareaRef}
@@ -80,10 +79,6 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSend, onStop, disabled }
                         )}
                     </div>
                 </div>
-            </div>
-
-            <div className="mt-3 text-center">
-                <span className="text-[10px] font-black uppercase tracking-[2px] text-white/10">⚜️ Québec AI • Souveraineté Digitale</span>
             </div>
         </div>
     );
