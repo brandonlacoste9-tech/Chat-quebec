@@ -37,50 +37,50 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSend, onStop, disabled }
     };
 
     return (
-        <div className="w-full max-w-[800px] mx-auto px-4 pb-8">
-            <div className="relative bg-[#1a1a1a] border border-white/5 rounded-[32px] overflow-hidden focus-within:border-white/20 transition-all duration-300 shadow-2xl">
+        <div className="w-full max-w-[800px] mx-auto px-4 pb-6">
+            <div className="relative bg-[#1a1a1a] border border-white/[0.08] rounded-[28px] shadow-2xl transition-all duration-300 focus-within:border-white/20">
                 <textarea
                     ref={textareaRef}
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    placeholder="Posez votre question... (Maj+Entrée pour saut de ligne)"
-                    className="w-full bg-transparent border-none focus:ring-0 text-white/90 p-6 pr-14 resize-none min-h-[64px] max-h-[220px] scrollbar-none text-[16px] placeholder:text-white/20 font-medium leading-[1.6]"
+                    placeholder="Posez votre question... (Maj+Entrée pour un saut de ligne)"
+                    className="w-full bg-transparent border-none focus:ring-0 text-white/90 px-6 pt-6 pb-2 resize-none min-h-[60px] max-h-[220px] scrollbar-none text-[16px] placeholder:text-white/20 font-medium leading-relaxed"
                     rows={1}
                     disabled={isStreaming || disabled}
                 />
 
-                <div className="flex items-center justify-between px-4 pb-4">
-                    <div className="flex items-center gap-1">
+                <div className="flex items-center justify-between px-4 pb-3">
+                    <div className="flex items-center gap-0.5">
                         <button
-                            className="p-2.5 text-white/10 hover:text-white/40 hover:bg-white/5 rounded-2xl transition-all"
+                            className="p-2.5 text-white/20 hover:text-white/60 hover:bg-white/5 rounded-2xl transition-all"
                             title="Joindre un fichier"
                         >
-                            <Paperclip size={18} />
+                            <Paperclip size={20} className="-rotate-45" />
                         </button>
                         <button
-                            className="p-2.5 text-white/10 hover:text-white/40 hover:bg-white/5 rounded-2xl transition-all"
+                            className="p-2.5 text-white/20 hover:text-white/60 hover:bg-white/5 rounded-2xl transition-all"
                             title="Entrée vocale"
                         >
-                            <Mic size={18} />
+                            <Mic size={20} />
                         </button>
                     </div>
 
-                    <div className="flex items-center">
+                    <div className="flex items-center pr-1">
                         {isStreaming ? (
                             <button
                                 onClick={onStop}
-                                className="w-10 h-10 bg-danger/20 text-danger hover:bg-danger hover:text-white rounded-full flex items-center justify-center transition-all animate-pulse"
+                                className="w-9 h-9 bg-danger/20 text-danger hover:bg-danger hover:text-white rounded-full flex items-center justify-center transition-all animate-pulse"
                             >
-                                <Square size={14} fill="currentColor" />
+                                <Square size={12} fill="currentColor" />
                             </button>
                         ) : (
                             <button
                                 onClick={handleSend}
                                 disabled={!input.trim() || isStreaming || disabled}
-                                className="w-10 h-10 bg-qblue-bright text-white hover:bg-white hover:text-qblue rounded-full flex items-center justify-center transition-all disabled:opacity-5 disabled:grayscale active:scale-95 group shadow-lg"
+                                className="w-9 h-9 bg-white text-black hover:bg-qblue-bright hover:text-white rounded-full flex items-center justify-center transition-all disabled:opacity-5 disabled:grayscale active:scale-95 group shadow-lg"
                             >
-                                <Send size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                                <Send size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                             </button>
                         )}
                     </div>
