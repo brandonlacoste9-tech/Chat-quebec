@@ -138,48 +138,53 @@ body {
   @apply bg-[rgba(15,17,23,0.7)] backdrop-blur-xl border border-[rgba(255,255,255,0.08)] shadow-[0_8px_32px_rgba(0,0,0,0.4)];
 }
 
-/* PRO MAX LEATHER & GOLD STITCHING */
+/* PRO MAX LUXURY MATERIAL DESIGN */
 .leather-pro {
-  background-image: url("/leather-premium.png");
-  background-size: cover;
-  background-position: center;
+  background-image:
+    linear-gradient(rgba(185, 28, 28, 0.45), rgba(153, 27, 27, 0.65)),
+    url("/leather-premium.png");
+  background-size: 180px;
+  background-repeat: repeat;
   position: relative;
+  box-shadow:
+    inset 0 0 30px rgba(0, 0, 0, 0.4),
+    0 10px 25px rgba(0, 0, 0, 0.5);
 }
 
 .leather-dark {
   background-image:
-    linear-gradient(rgba(8, 9, 13, 0.85), rgba(8, 9, 13, 0.85)),
+    linear-gradient(rgba(8, 9, 13, 0.94), rgba(8, 9, 13, 0.92)),
     url("/leather-texture.png");
-  background-size: cover;
-  background-position: center;
+  background-size: 220px;
+  background-repeat: repeat;
+  position: relative;
 }
 
 .stitched-gold {
   position: relative;
-  border: 1px solid rgba(212, 175, 55, 0.3);
+  border: 1.5px solid #d4af37;
 }
 
 .stitched-gold::after {
   content: "";
   position: absolute;
-  inset: 2px;
+  inset: 3px;
   border: 1px dashed rgba(212, 175, 55, 0.5);
   border-radius: inherit;
   pointer-events: none;
-  mask-image: linear-gradient(to right, black 4px, transparent 4px);
-  mask-size: 8px 100%;
+  opacity: 0.7;
 }
 
-.stitched-red {
+.stitched-subtle {
   position: relative;
-  border: 1px solid rgba(220, 38, 38, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.stitched-red::after {
+.stitched-subtle::after {
   content: "";
   position: absolute;
   inset: 2px;
-  border: 1px dashed rgba(220, 38, 38, 0.5);
+  border: 1px dashed rgba(255, 255, 255, 0.05);
   border-radius: inherit;
   pointer-events: none;
 }
