@@ -1,11 +1,10 @@
 'use client';
 
 import React, { useRef, useEffect } from 'react';
-import { Menu, Zap, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import { useChatStore } from '@/lib/store';
 import { MessageBubble } from './MessageBubble';
 import { AgentType } from '@/types/chat';
-import { cn } from '@/lib/utils';
 
 const AGENTS: Record<AgentType, { name: string; emoji: string; desc: string }> = {
     general: { name: "Assistant Québec AI", emoji: "⚜️", desc: "Assistant général fier d'être Québécois" },
@@ -20,8 +19,6 @@ export const ChatArea = () => {
         conversations,
         activeConvId,
         activeAgent,
-        sidebarOpen,
-        toggleSidebar,
         updateMessage
     } = useChatStore();
 
@@ -45,14 +42,6 @@ export const ChatArea = () => {
             {/* Header Area */}
             <header className="h-[60px] border-b border-white/5 px-6 flex items-center justify-between bg-[#0a0a0a]/80 backdrop-blur-xl z-20 sticky top-0">
                 <div className="flex items-center gap-4 min-w-0">
-                    {!sidebarOpen && (
-                        <button
-                            onClick={toggleSidebar}
-                            className="p-2 -ml-2 text-white/40 hover:text-white hover:bg-white/5 rounded-lg transition-all"
-                        >
-                            <Menu size={20} />
-                        </button>
-                    )}
 
                     <div className="flex items-center gap-2.5 overflow-hidden">
                         <span className="text-xl shrink-0">{currentAgent.emoji}</span>
