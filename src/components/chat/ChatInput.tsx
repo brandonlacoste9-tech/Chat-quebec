@@ -37,64 +37,58 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSend, onStop, disabled }
     };
 
     return (
-        <div className="w-full max-w-[800px] mx-auto px-4 pb-8 pt-2">
-            <div className="relative group">
-                {/* Glow Effect on Focus */}
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-qblue/20 to-accent/20 rounded-[30px] blur opacity-0 group-focus-within:opacity-100 transition duration-1000"></div>
+        <div className="w-full max-w-[800px] mx-auto px-4 pb-8">
+            <div className="relative bg-[#1a1a1a] border border-white/5 rounded-[32px] overflow-hidden focus-within:border-white/20 transition-all duration-300 shadow-2xl">
+                <textarea
+                    ref={textareaRef}
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    placeholder="Posez votre question... (Maj+Entrée pour saut de ligne)"
+                    className="w-full bg-transparent border-none focus:ring-0 text-white/90 p-6 pr-14 resize-none min-h-[64px] max-h-[220px] scrollbar-none text-[16px] placeholder:text-white/20 font-medium leading-[1.6]"
+                    rows={1}
+                    disabled={isStreaming || disabled}
+                />
 
-                <div className="relative bg-[#111111] border border-white/10 rounded-[28px] shadow-2xl overflow-hidden focus-within:border-white/20 focus-within:bg-[#141414] transition-all duration-300">
-                    <textarea
-                        ref={textareaRef}
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        onKeyDown={handleKeyDown}
-                        placeholder="Écrivez votre message... (Maj+Entrée pour nouvelle ligne)"
-                        className="w-full bg-transparent border-none focus:ring-0 text-white/90 p-6 pr-16 resize-none min-h-[70px] max-h-[220px] scrollbar-none text-[16px] placeholder:text-white/20 transition-all font-medium leading-relaxed"
-                        rows={1}
-                        disabled={isStreaming || disabled}
-                    />
+                <div className="flex items-center justify-between px-4 pb-4">
+                    <div className="flex items-center gap-1">
+                        <button
+                            className="p-2.5 text-white/10 hover:text-white/40 hover:bg-white/5 rounded-2xl transition-all"
+                            title="Joindre un fichier"
+                        >
+                            <Paperclip size={18} />
+                        </button>
+                        <button
+                            className="p-2.5 text-white/10 hover:text-white/40 hover:bg-white/5 rounded-2xl transition-all"
+                            title="Entrée vocale"
+                        >
+                            <Mic size={18} />
+                        </button>
+                    </div>
 
-                    <div className="flex items-center justify-between px-5 pb-4">
-                        <div className="flex items-center gap-1">
+                    <div className="flex items-center">
+                        {isStreaming ? (
                             <button
-                                className="p-2.5 text-white/20 hover:text-white/60 hover:bg-white/5 rounded-xl transition-all duration-200"
-                                title="Joindre un fichier"
+                                onClick={onStop}
+                                className="w-10 h-10 bg-danger/20 text-danger hover:bg-danger hover:text-white rounded-full flex items-center justify-center transition-all animate-pulse"
                             >
-                                <Paperclip size={19} />
+                                <Square size={14} fill="currentColor" />
                             </button>
+                        ) : (
                             <button
-                                className="p-2.5 text-white/20 hover:text-white/60 hover:bg-white/5 rounded-xl transition-all duration-200"
-                                title="Dictée vocale"
+                                onClick={handleSend}
+                                disabled={!input.trim() || isStreaming || disabled}
+                                className="w-10 h-10 bg-qblue-bright text-white hover:bg-white hover:text-qblue rounded-full flex items-center justify-center transition-all disabled:opacity-5 disabled:grayscale active:scale-95 group shadow-lg"
                             >
-                                <Mic size={19} />
+                                <Send size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                             </button>
-                        </div>
-
-                        <div className="flex items-center gap-3">
-                            {isStreaming ? (
-                                <button
-                                    onClick={onStop}
-                                    className="w-10 h-10 bg-danger/80 hover:bg-danger text-white rounded-full flex items-center justify-center transition-all shadow-lg shadow-danger/20"
-                                >
-                                    <Square size={16} fill="white" />
-                                </button>
-                            ) : (
-                                <button
-                                    onClick={handleSend}
-                                    disabled={!input.trim() || isStreaming || disabled}
-                                    className="w-10 h-10 bg-white text-black hover:bg-qblue-bright hover:text-white rounded-full flex items-center justify-center transition-all duration-300 disabled:opacity-10 disabled:grayscale shadow-lg active:scale-90 group/btn"
-                                >
-                                    <Send size={18} className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-                                </button>
-                            )}
-                        </div>
+                        )}
                     </div>
                 </div>
             </div>
 
-            {/* Minimal Sovereignty Hint */}
-            <div className="mt-4 flex justify-center items-center gap-2 opacity-10 pointer-events-none">
-                <span className="text-[9px] font-black uppercase tracking-[3px]">Souveraineté Digitale du Québec</span>
+            <div className="mt-4 text-center select-none">
+                <span className="text-[9px] font-bold uppercase tracking-[0.4em] text-white/5">Souveraineté Digitale · Québec AI</span>
             </div>
         </div>
     );
