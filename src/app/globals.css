@@ -45,6 +45,8 @@
   --color-surface: var(--surface);
   --color-surface-2: var(--surface2);
   --color-surface-3: var(--surface3);
+  --color-border: var(--border);
+  --color-border-bright: var(--border-bright);
 }
 
 * {
