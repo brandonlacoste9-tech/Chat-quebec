@@ -31,22 +31,19 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message, agentName
             "group flex flex-col max-w-[800px] mx-auto w-full px-4 animate-in fade-in slide-in-from-top-2 duration-300",
             isUser ? "items-end" : "items-start"
         )}>
-            {/* Header label */}
-            <div className="flex items-center gap-2 mb-2 px-1">
-                <span className={cn(
-                    "text-[10px] uppercase font-black tracking-widest",
-                    isUser ? "text-qblue-bright" : "text-white/40"
-                )}>
-                    {isUser ? "VOUS" : agentName}
-                </span>
-                <span className="text-[10px] text-white/20 font-medium">{message.time}</span>
-            </div>
+            {/* Header label - minimalist */}
+            {!isUser && (
+                <div className="flex items-center gap-2 mb-1.5 px-0.5">
+                    <span className="text-[10px] font-bold text-white/50 uppercase tracking-widest">{agentName}</span>
+                    <span className="text-[10px] text-white/20 font-medium">{message.time}</span>
+                </div>
+            )}
 
             {/* Bubble content */}
             <div className={cn(
-                "relative max-w-[90%] text-[15px] leading-relaxed transition-all",
+                "relative max-w-[85%] text-[15.5px] leading-relaxed transition-all",
                 isUser
-                    ? "bg-qblue text-white px-5 py-3 rounded-2xl rounded-tr-sm shadow-md"
+                    ? "bg-qblue text-white px-5 py-3 rounded-2xl rounded-tr-sm shadow-sm"
                     : "bg-[#1a1a1a] text-white/90 px-6 py-4 rounded-3xl rounded-tl-sm border border-white/5 shadow-sm"
             )}>
                 {message.role === 'assistant' ? (
@@ -56,7 +53,7 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message, agentName
                         </ReactMarkdown>
                     </div>
                 ) : (
-                    <p className="whitespace-pre-wrap font-medium">{message.content}</p>
+                    <p className="whitespace-pre-wrap">{message.content}</p>
                 )}
 
                 {/* Cursor for streaming */}
@@ -67,23 +64,18 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ message, agentName
 
             {/* Actions for assistant messages */}
             {!isUser && !message.streaming && message.content.length > 0 && (
-                <div className="flex items-center gap-3 mt-2 px-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button onClick={handleCopy} className="p-1.5 hover:bg-white/5 rounded-lg text-white/40 hover:text-white transition-all">
+                <div className="flex items-center gap-3 mt-2 px-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button onClick={handleCopy} className="p-1 text-white/30 hover:text-white transition-all">
                         {copied ? <Check size={14} className="text-success" /> : <Copy size={14} />}
                     </button>
-                    <div className="flex items-center gap-1 border-l border-white/5 pl-2 ml-1">
-                        <button onClick={() => onFeedback?.('up')} className={cn("p-1.5 hover:bg-white/5 rounded-lg transition-all", message.feedback === 'up' ? "text-success bg-success/10" : "text-white/40 hover:text-white")}>
+                    <div className="flex items-center gap-1.5 border-l border-white/5 pl-2">
+                        <button onClick={() => onFeedback?.('up')} className={cn("p-1 transition-all", message.feedback === 'up' ? "text-success" : "text-white/30 hover:text-white")}>
                             <ThumbsUp size={14} />
                         </button>
-                        <button onClick={() => onFeedback?.('down')} className={cn("p-1.5 hover:bg-white/5 rounded-lg transition-all", message.feedback === 'down' ? "text-danger bg-danger/10" : "text-white/40 hover:text-white")}>
+                        <button onClick={() => onFeedback?.('down')} className={cn("p-1 transition-all", message.feedback === 'down' ? "text-danger" : "text-white/30 hover:text-white")}>
                             <ThumbsDown size={14} />
                         </button>
                     </div>
-                    {onRegenerate && (
-                        <button onClick={onRegenerate} className="p-1.5 hover:bg-white/5 rounded-lg text-white/40 hover:text-white transition-all ml-1">
-                            <RotateCw size={14} />
-                        </button>
-                    )}
                 </div>
             )}
         </div>
