@@ -37,15 +37,15 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSend, onStop, disabled }
     };
 
     return (
-        <div className="w-full max-w-[800px] mx-auto px-4 pb-6">
-            <div className="relative bg-[#1a1a1a] border border-white/[0.08] rounded-[28px] shadow-2xl transition-all duration-300 focus-within:border-white/20">
+        <div className="w-full max-w-[800px] mx-auto px-4 pb-8">
+            <div className="relative bg-[#1a1a1a] border border-white/[0.08] rounded-[28px] shadow-2xl transition-all duration-300 focus-within:border-white/20 flex flex-col pt-2">
                 <textarea
                     ref={textareaRef}
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyDown}
                     placeholder="Posez votre question... (Maj+Entrée pour un saut de ligne)"
-                    className="w-full bg-transparent border-none focus:ring-0 text-white/90 px-6 pt-6 pb-2 resize-none min-h-[60px] max-h-[220px] scrollbar-none text-[16px] placeholder:text-white/20 font-medium leading-relaxed"
+                    className="w-full bg-transparent border-none focus:ring-0 text-white/90 px-6 py-4 resize-none min-h-[60px] max-h-[220px] scrollbar-none text-[16px] placeholder:text-white/20 font-medium leading-relaxed"
                     rows={1}
                     disabled={isStreaming || disabled}
                 />
