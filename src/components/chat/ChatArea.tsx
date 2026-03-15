@@ -5,12 +5,12 @@ import { useChatStore } from '@/lib/store';
 import { MessageBubble } from './MessageBubble';
 import { AgentType } from '@/types/chat';
 
-const AGENTS: Record<AgentType, { name: string; emoji: string; desc: string }> = {
-    general: { name: "Assistant Québec AI", emoji: "⚜️", desc: "Assistant général fier d'être Québécois" },
-    immigration: { name: "Expert Immigration", emoji: "🏛️", desc: "Conseiller spécialisé PEQ & CSQ" },
-    fiscalite: { name: "Fiscaliste Québec", emoji: "💰", desc: "Expert Revenu Québec & Fiscalité locale" },
-    cegep: { name: "Prof de Cégep", emoji: "📚", desc: "Pédagogie et aide à la réussite collégiale" },
-    randonnee: { name: "Guide SEPAQ", emoji: "🌲", desc: "Expert plein air et sentiers du Québec" },
+const AGENTS: Record<AgentType, { name: string; label: string }> = {
+    general: { name: 'Assistant', label: 'GPT-4.1' },
+    immigration: { name: 'Conseiller immigration', label: 'GPT-4.1' },
+    fiscalite: { name: 'Conseiller fiscal', label: 'GPT-4.1' },
+    cegep: { name: 'Tuteur académique', label: 'GPT-4.1' },
+    randonnee: { name: 'Guide plein air', label: 'GPT-4.1' },
 };
 
 export const ChatArea = () => {
@@ -37,32 +37,29 @@ export const ChatArea = () => {
     };
 
     return (
-        <div className="flex-1 flex flex-col w-full bg-[#0a0a0a]">
-            {/* Perfectly Centered Minimal Header */}
-            <header className="h-[64px] border-b border-white/5 bg-[#0a0a0a]/80 backdrop-blur-xl z-20 sticky top-0 w-full flex items-center justify-center">
-                <div className="flex items-center gap-2">
-                    <span className="text-xl shrink-0">{currentAgent.emoji}</span>
-                    <h2 className="text-[13px] font-bold text-white tracking-[0.3em] uppercase text-center">
-                        {currentAgent.name}
-                    </h2>
+        <div className="flex-1 flex flex-col w-full bg-[#212121] min-h-0">
+            <header className="sticky top-0 z-20 h-14 border-b border-white/10 bg-[#212121]/95 backdrop-blur">
+                <div className="mx-auto flex h-full w-full max-w-3xl items-center justify-between px-4">
+                    <h2 className="text-sm font-medium text-white/90">{currentAgent.name}</h2>
+                    <span className="rounded-full border border-white/15 px-2.5 py-1 text-xs text-white/65">
+                        {currentAgent.label}
+                    </span>
                 </div>
             </header>
 
-            {/* Scroll Area with Centering Constraint */}
-            <div className="flex-1 overflow-y-auto scrollbar-thin flex flex-col items-center pt-20 pb-20">
-                <div className="w-full max-w-[800px] px-6">
+            <div className="flex-1 overflow-y-auto scrollbar-thin">
+                <div className="mx-auto w-full max-w-3xl px-4 pb-24 pt-8">
                     {messages.length === 0 ? (
-                        <div className="flex flex-col items-center justify-center text-center animate-in fade-in duration-1000">
-                            <div className="w-20 h-20 bg-[#1a1a1a] rounded-[24px] flex items-center justify-center border border-white/5 mb-10 shadow-2xl transition-transform hover:rotate-6">
-                                <span className="text-4xl">⚜️</span>
-                            </div>
-
-                            <h1 className="text-5xl font-black text-white mb-6 tracking-tighter uppercase leading-[1.1]">
-                                COMMENT PUIS-JE VOUS AIDER?
+                        <div className="flex min-h-[50vh] flex-col items-center justify-center text-center animate-in fade-in duration-500">
+                            <h1 className="text-3xl font-semibold text-white">
+                                Comment puis-je vous aider aujourd&apos;hui&nbsp;?
                             </h1>
+                            <p className="mt-3 max-w-xl text-sm text-white/60">
+                                Posez une question, demandez une explication, ou collez un texte à résumer.
+                            </p>
                         </div>
                     ) : (
-                        <div className="space-y-12 pb-12 w-full">
+                        <div className="space-y-1 pb-10 w-full">
                             {messages.map((msg) => (
                                 <MessageBubble
                                     key={msg.id}

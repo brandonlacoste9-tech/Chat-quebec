@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useEffect } from 'react';
-import { Send, Square, Mic, Paperclip } from 'lucide-react';
+import { ArrowUp, Square, Mic, Paperclip } from 'lucide-react';
 import { useChatStore } from '@/lib/store';
 
 interface ChatInputProps {
@@ -37,39 +37,40 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSend, onStop, disabled }
     };
 
     return (
-        <div className="w-full max-w-[800px] mx-auto px-4 pb-8">
-            <div className="relative bg-[#161616] border border-white/[0.05] rounded-[24px] shadow-2xl transition-all duration-300 focus-within:border-white/10 group">
+        <div className="mx-auto w-full max-w-3xl">
+            <div className="relative rounded-[28px] border border-white/15 bg-[#2f2f2f] shadow-2xl transition focus-within:border-white/30">
                 <textarea
                     ref={textareaRef}
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    placeholder="Écrivez votre message ici..."
-                    className="w-full bg-transparent border-none focus:ring-0 text-white/90 px-6 pt-7 pb-16 resize-none min-h-[80px] max-h-[240px] scrollbar-none text-[16px] placeholder:text-white/10 font-medium leading-relaxed"
+                    placeholder="Écrivez votre message..."
+                    className="w-full resize-none border-none bg-transparent px-5 pb-14 pt-5 text-[16px] leading-relaxed text-white/95 placeholder:text-white/45 focus:ring-0 min-h-[72px] max-h-[220px] scrollbar-none"
                     rows={1}
                     disabled={isStreaming || disabled}
                 />
 
-                <div className="absolute bottom-4 left-4 flex items-center gap-1">
+                <div className="absolute bottom-3 left-3 flex items-center gap-1">
                     <button
-                        className="p-2 text-white/20 hover:text-white/60 hover:bg-white/5 rounded-xl transition-all"
-                        title="Joindre"
+                        className="rounded-lg p-2 text-white/45 transition hover:bg-white/10 hover:text-white"
+                        title="Joindre un fichier"
                     >
                         <Paperclip size={18} className="-rotate-45" />
                     </button>
                     <button
-                        className="p-2 text-white/20 hover:text-white/60 hover:bg-white/5 rounded-xl transition-all"
-                        title="Vocal"
+                        className="rounded-lg p-2 text-white/45 transition hover:bg-white/10 hover:text-white"
+                        title="Entrée vocale"
                     >
                         <Mic size={18} />
                     </button>
                 </div>
 
-                <div className="absolute bottom-4 right-4">
+                <div className="absolute bottom-3 right-3">
                     {isStreaming ? (
                         <button
                             onClick={onStop}
-                            className="w-9 h-9 bg-danger/10 text-danger hover:bg-danger hover:text-white rounded-full flex items-center justify-center transition-all animate-pulse"
+                            className="flex h-9 w-9 items-center justify-center rounded-full bg-rose-500/15 text-rose-300 transition hover:bg-rose-500 hover:text-white"
+                            title="Arrêter la génération"
                         >
                             <Square size={12} fill="currentColor" />
                         </button>
@@ -77,16 +78,17 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSend, onStop, disabled }
                         <button
                             onClick={handleSend}
                             disabled={!input.trim() || isStreaming || disabled}
-                            className="w-9 h-9 bg-white text-black hover:bg-qblue-bright hover:text-white rounded-full flex items-center justify-center transition-all disabled:opacity-0 disabled:pointer-events-none active:scale-95 shadow-xl"
+                            className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-black transition hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-40"
+                            title="Envoyer"
                         >
-                            <Send size={15} />
+                            <ArrowUp size={16} />
                         </button>
                     )}
                 </div>
             </div>
 
-            <div className="mt-4 flex justify-center opacity-10 pointer-events-none select-none">
-                <span className="text-[8px] font-black uppercase tracking-[5px]">Québec AI OS</span>
+            <div className="mt-2 px-1 text-center text-xs text-white/50">
+                L&apos;IA peut se tromper. Vérifiez les informations importantes.
             </div>
         </div>
     );
