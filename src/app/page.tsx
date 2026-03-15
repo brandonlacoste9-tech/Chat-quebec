@@ -3,6 +3,7 @@
 import React, { useEffect, useCallback } from 'react';
 import { ChatArea } from '@/components/chat/ChatArea';
 import { ChatInput } from '@/components/chat/ChatInput';
+import { ChatSidebar } from '@/components/chat/ChatSidebar';
 import Footer from '@/components/ui/Footer';
 import { useChatStore } from '@/lib/store';
 import { Message } from '@/types/chat';
@@ -18,19 +19,23 @@ export default function Home() {
     activeAgent
   } = useChatStore();
 
+  const createConversation = useCallback(() => {
+    const id = Math.random().toString(36).substr(2, 9);
+    addConversation({
+      id,
+      title: 'Nouvelle discussion',
+      messages: [],
+      agent: activeAgent,
+      createdAt: new Date(),
+    });
+  }, [addConversation, activeAgent]);
+
   // Initialize first conversation if none exists
   useEffect(() => {
     if (conversations.length === 0) {
-      const id = Math.random().toString(36).substr(2, 9);
-      addConversation({
-        id,
-        title: "Nouvelle conversation",
-        messages: [],
-        agent: 'general',
-        createdAt: new Date(),
-      });
+      createConversation();
     }
-  }, [conversations.length, addConversation]);
+  }, [conversations.length, createConversation]);
 
   const handleSend = useCallback(async (text: string) => {
     if (!activeConvId) return;
@@ -113,13 +118,16 @@ export default function Home() {
   }, [setIsStreaming]);
 
   return (
-    <main className="h-screen bg-bg overflow-hidden flex flex-col">
-      <div className="flex-1 flex flex-col w-full relative">
-        <ChatArea />
-        <div className="w-full flex justify-center">
-          <ChatInput onSend={handleSend} onStop={handleStop} />
+    <main className="h-screen bg-[#212121] overflow-hidden">
+      <div className="flex h-full w-full">
+        <ChatSidebar onNewConversation={createConversation} />
+        <div className="relative flex min-w-0 flex-1 flex-col">
+          <ChatArea />
+          <div className="w-full px-4 pb-2">
+            <ChatInput onSend={handleSend} onStop={handleStop} />
+          </div>
+          <Footer />
         </div>
-        <Footer />
       </div>
     </main>
   );

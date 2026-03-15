@@ -1,36 +1,26 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: "Syne";
-  src: url("https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&display=swap");
-}
-
-@font-face {
-  font-family: "DM Sans";
-  src: url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap");
-}
-
 :root {
-  --bg: #0a0a0a;
-  --surface: #050505;
-  --surface2: #141414;
-  --surface3: #1a1a1a;
-  --border: rgba(255, 255, 255, 0.05);
-  --border-bright: rgba(255, 255, 255, 0.1);
-  --qblue: #1d4ed8;
+  --bg: #212121;
+  --surface: #171717;
+  --surface2: #2f2f2f;
+  --surface3: #303030;
+  --border: rgba(255, 255, 255, 0.12);
+  --border-bright: rgba(255, 255, 255, 0.2);
+  --qblue: #2563eb;
   --qblue-bright: #3b82f6;
   --qblue-glow: rgba(59, 130, 246, 0.15);
   --gold: #f59e0b;
   --gold-dim: rgba(245, 158, 11, 0.15);
   --text: #ffffff;
-  --text-dim: #9ca3af;
-  --text-muted: #4b5563;
+  --text-dim: #c4c4c4;
+  --text-muted: #8f8f8f;
   --accent: #3b82f6;
-  --success: #10b981;
-  --danger: #ef4444;
+  --success: #34d399;
+  --danger: #fb7185;
   --sidebar-w: 280px;
-  --font-display: "DM Sans", sans-serif;
-  --font-body: "DM Sans", sans-serif;
+  --font-display: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --radius: 16px;
 }
 
@@ -61,7 +51,7 @@ body {
   color: var(--text);
   font-family: var(--font-body);
   font-size: 15px;
-  line-height: normal;
+  line-height: 1.45;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -73,7 +63,7 @@ body {
 }
 
 .scrollbar-thin::-webkit-scrollbar {
-  width: 5px;
+  width: 8px;
 }
 
 .scrollbar-thin::-webkit-scrollbar-track {
@@ -81,12 +71,14 @@ body {
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.35);
 }
 
 .scrollbar-none::-webkit-scrollbar {
