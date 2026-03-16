@@ -32,7 +32,8 @@ interface User {
 }
 
 export const authOptions = {
-  adapter: NeonAdapter(getPool() as any),
+  // Only add adapter if we have a real database URL
+  ...(process.env.DATABASE_URL ? { adapter: NeonAdapter(getPool() as any) } : {}),
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
     EmailProvider({
@@ -42,7 +43,7 @@ export const authOptions = {
   ],
   callbacks: {
     session({ session, user }: { session: Session; user: any }) {
-      if (session.user) {
+      if (session.user && user) {
         session.user.id = user.id
         session.user.plan = user.plan ?? 'free'
         session.user.stripe_customer = user.stripe_customer
@@ -53,7 +54,9 @@ export const authOptions = {
   pages: {
     signIn: '/login',
     verifyRequest: '/check-email',
-  }
+    error: '/login', // Redirect back to login on error
+  },
+  debug: process.env.NODE_ENV === 'development' || true, // Enable debug to see Vercel logs
 }
 
 const handler = NextAuth(authOptions)
