@@ -30,19 +30,19 @@ export default function LoginPage() {
           <div className="w-10 h-10 bg-gold rounded-lg flex items-center justify-center font-playfair text-xl font-black text-bark shadow-lg shadow-gold/10">P</div>
           <div>
             <div className="font-playfair text-lg font-bold text-gold leading-tight">Parlons</div>
-            <div className="font-barlow-cond text-[10px] tracking-[3px] text-text-muted uppercase">L&apos;IA du Québec</div>
+            <div className="font-barlow-cond text-[10px] tracking-[3px] text-text-muted uppercase">Quebec AI</div>
           </div>
         </div>
 
-        <h1 className="font-playfair text-2xl font-bold text-text-main mb-1">Entre dans la gang</h1>
-        <p className="text-text-muted text-sm mb-6 font-barlow-cond tracking-wide">Pas de mot de passe — juste ton courriel.</p>
+        <h1 className="font-playfair text-2xl font-bold text-text-main mb-1">Join the group</h1>
+        <p className="text-text-muted text-sm mb-6 font-barlow-cond tracking-wide">No password needed — just your email.</p>
 
         <input
           type="email"
           value={email}
           onChange={e => setEmail(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && handleLogin()}
-          placeholder="ton@courriel.com"
+          placeholder="your@email.com"
           className="w-full bg-bark border border-border-parlons rounded-xl px-4 py-3 text-text-main placeholder-text-dim outline-none focus:border-gold/45 mb-3 text-sm transition-colors"
         />
 
@@ -51,12 +51,12 @@ export default function LoginPage() {
           disabled={!email.includes('@')}
           className="w-full bg-gold hover:bg-gold-l text-bark font-barlow-cond font-bold tracking-[0.2em] text-sm py-3.5 rounded-xl transition-all shadow-lg shadow-gold/10 hover:shadow-gold/20 disabled:opacity-30 disabled:cursor-not-allowed uppercase"
         >
-          Envoyer le lien magique
+          Send Magic Link
         </button>
 
         <p className="text-center text-text-dim text-xs mt-6 font-barlow-cond tracking-wide leading-relaxed">
-          En continuant, t&apos;acceptes nos <br/>
-          <span className="text-text-muted underline decoration-gold/30 cursor-pointer">conditions d&apos;utilisation</span>.
+          By continuing, you agree to our <br/>
+          <span className="text-text-muted underline decoration-gold/30 cursor-pointer">Terms of Use</span>.
         </p>
       </div>
     </div>

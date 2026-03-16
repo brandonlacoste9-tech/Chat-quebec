@@ -28,7 +28,7 @@ export const Sidebar = ({ user }: SidebarProps) => {
         const id = Math.random().toString(36).substr(2, 9);
         addConversation({
             id,
-            title: "Nouvelle jasette",
+            title: "New Chat",
             messages: [],
             agent: 'general',
             createdAt: new Date(),
@@ -38,7 +38,7 @@ export const Sidebar = ({ user }: SidebarProps) => {
     };
 
     const formatDate = (date: Date) => {
-        return new Date(date).toLocaleDateString('fr-CA', { month: 'short', day: 'numeric' });
+        return new Date(date).toLocaleDateString('en-CA', { month: 'short', day: 'numeric' });
     };
 
     return (
@@ -72,7 +72,7 @@ export const Sidebar = ({ user }: SidebarProps) => {
                         </div>
                         <div>
                             <div className="brand-name font-playfair text-[18px] font-bold text-gold leading-none">Parlons</div>
-                            <div className="brand-sub font-barlow-cond text-[9px] tracking-[2.5px] color-[var(--text-dim)] uppercase mt-[2px]">L&apos;IA du Québec</div>
+                            <div className="brand-sub font-barlow-cond text-[9px] tracking-[2.5px] color-[var(--text-dim)] uppercase mt-[2px]">Quebec AI</div>
                         </div>
                     </div>
                     
@@ -81,18 +81,18 @@ export const Sidebar = ({ user }: SidebarProps) => {
                         className="new-btn w-full p-[10px_14px] bg-transparent border border-border-hot rounded-[8px] color-[var(--gold)] font-barlow-cond text-[11px] font-semibold tracking-[2px] uppercase cursor-pointer flex items-center justify-center gap-[7px] transition-all hover:bg-[rgba(201,168,76,.09)]"
                     >
                         <Plus size={14} strokeWidth={3} />
-                        Nouvelle jasette
+                        New session
                     </button>
                 </div>
 
                 <div className="sec-lbl font-barlow-cond text-[9px] tracking-[2.5px] text-text-dim uppercase p-[13px_17px_5px] relative z-10">
-                    Jasettes récentes
+                    Recent chats
                 </div>
 
                 <div className="chats flex-1 overflow-y-auto p-[0_7px_12px] scrollbar-thin relative z-10">
                     {conversations.length === 0 ? (
                         <div className="p-[13px_11px] text-text-dim text-[11px] font-barlow-cond tracking-[1px] uppercase">
-                            Aucune jasette pour astheure
+                            No chats yet
                         </div>
                     ) : (
                         conversations.map((chat) => (
@@ -134,7 +134,7 @@ export const Sidebar = ({ user }: SidebarProps) => {
                                 const data = await res.json();
                                 if (data.url) window.location.href = data.url;
                             } catch (e) {
-                                console.error("Erreur Stripe:", e);
+                                console.error("Stripe error:", e);
                             }
                         }}
                         className="urow flex items-center gap-[9px] p-[7px_9px] rounded-[7px] border border-border-parlons cursor-pointer transition-all hover:bg-[rgba(201,168,76,.06)] hover:border-border-hot group"
@@ -144,7 +144,7 @@ export const Sidebar = ({ user }: SidebarProps) => {
                         </div>
                         <div className="unm text-[12.5px] font-medium text-text-main flex-1 truncate">{user.email.split('@')[0]}</div>
                         <div className="upl font-barlow-cond text-[8px] tracking-[1.5px] text-gold bg-[rgba(201,168,76,.1)] p-[2px_6px] rounded-[3px] border border-[rgba(201,168,76,.18)] group-hover:bg-gold group-hover:text-bark transition-colors uppercase">
-                            {user.plan === 'free' ? 'Améliorer' : user.plan}
+                            {user.plan === 'free' ? 'Upgrade' : user.plan}
                         </div>
                     </div>
                 </div>

@@ -8,10 +8,10 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Québec AI OS — Le Chat GPT Souverain du Québec",
-  description: "Québec AI OS est l'alternative souveraine à ChatGPT et Gemini au Québec. IA en français (fr-CA) experte en fiscalité, immigration et éducation québécoise. Conforme Loi 25.",
-  keywords: ["IA Québec", "Souveraineté numérique", "Chat GPT Québec", "Loi 25", "Revenu Québec IA", "Fiscalité Québec", "Immigration Québec", "PEQ", "CSQ"],
-  authors: [{ name: "Québec AI OS" }],
+  title: "Quebec AI OS — The Sovereign Quebec Chatbot",
+  description: "Quebec AI OS is the sovereign alternative to ChatGPT and Gemini in Quebec. English (en-CA) AI expert in Quebec taxes, immigration, and education. Bill 25 compliant.",
+  keywords: ["Quebec AI", "Digital Sovereignty", "Quebec Chat GPT", "Bill 25", "Revenu Quebec IA", "Quebec Taxes", "Quebec Immigration", "PEQ", "CSQ"],
+  authors: [{ name: "Quebec AI OS" }],
   robots: "index, follow",
 };
 
@@ -23,25 +23,25 @@ export default function RootLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Québec AI OS",
+    "name": "Quebec AI OS",
     "applicationCategory": "MultimediaApplication",
     "operatingSystem": "Web",
     "author": {
       "@type": "Organization",
-      "name": "Québec AI OS",
+      "name": "Quebec AI OS",
       "address": {
         "@type": "PostalAddress",
-        "addressLocality": "Montréal",
+        "addressLocality": "Montreal",
         "addressRegion": "QC",
         "addressCountry": "CA"
       }
     },
-    "description": "Première infrastructure d'intelligence artificielle souveraine au Québec.",
+    "description": "First sovereign artificial intelligence infrastructure in Quebec.",
     "areaServed": {
       "@type": "AdministrativeArea",
-      "name": "Québec"
+      "name": "Quebec"
     },
-    "inLanguage": "fr-CA",
+    "inLanguage": "en-CA",
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -50,7 +50,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="fr-CA" suppressHydrationWarning>
+    <html lang="en-CA" suppressHydrationWarning>
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Barlow+Condensed:wght@300;400;500;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet" />
         <script

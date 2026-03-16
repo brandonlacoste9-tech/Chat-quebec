@@ -28,7 +28,7 @@ export default function ChatLayout({ user }: ChatLayoutProps) {
     activeAgent
   } = useChatStore();
 
-  const [ollamaStatus, setOllamaStatus] = useState<{ color: string; text: string }>({ color: 'grey', text: 'Prêt à jaser' });
+  const [ollamaStatus, setOllamaStatus] = useState<{ color: string; text: string }>({ color: 'grey', text: 'Ready to chat' });
   const [isPaywallOpen, setIsPaywallOpen] = useState(false);
 
   // Initialize first conversation if none exists
@@ -37,7 +37,7 @@ export default function ChatLayout({ user }: ChatLayoutProps) {
       const id = Math.random().toString(36).substr(2, 9);
       addConversation({
         id,
-        title: "Nouvelle jasette",
+        title: "New chat",
         messages: [],
         agent: 'general',
         createdAt: new Date(),
@@ -54,12 +54,12 @@ export default function ChatLayout({ user }: ChatLayoutProps) {
         const res = await fetch('http://localhost:11434/api/tags', { signal: controller.signal });
         clearTimeout(timeout);
         if (res.ok) {
-          setOllamaStatus({ color: 'green', text: 'Ollama connecté' });
+          setOllamaStatus({ color: 'green', text: 'Ollama connected' });
         } else {
-          setOllamaStatus({ color: 'blue', text: 'DeepSeek en standby' });
+          setOllamaStatus({ color: 'blue', text: 'DeepSeek on standby' });
         }
       } catch {
-        setOllamaStatus({ color: 'blue', text: 'DeepSeek en standby' });
+        setOllamaStatus({ color: 'blue', text: 'DeepSeek on standby' });
       }
     };
     pingOllama();
@@ -73,7 +73,7 @@ export default function ChatLayout({ user }: ChatLayoutProps) {
       id: Math.random().toString(36).substr(2, 9),
       role: 'user',
       content: text,
-      time: new Date().toLocaleTimeString('fr-CA', { hour: '2-digit', minute: '2-digit' }),
+      time: new Date().toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit' }),
     };
 
     addMessage(activeConvId, userMsg);
@@ -84,7 +84,7 @@ export default function ChatLayout({ user }: ChatLayoutProps) {
       id: assistantId,
       role: 'assistant',
       content: '',
-      time: new Date().toLocaleTimeString('fr-CA', { hour: '2-digit', minute: '2-digit' }),
+      time: new Date().toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit' }),
       streaming: true,
     };
 
@@ -107,7 +107,7 @@ export default function ChatLayout({ user }: ChatLayoutProps) {
         setIsPaywallOpen(true);
         // Remove the placeholder message
         updateMessage(activeConvId, assistantId, { 
-            content: "Limite de messages atteinte. Passe à Plus ou Pro!", 
+            content: "Message limit reached. Upgrade to Plus or Pro!", 
             streaming: false,
             source: 'error'
         });
@@ -152,7 +152,7 @@ export default function ChatLayout({ user }: ChatLayoutProps) {
     } catch (error) {
       console.error('Streaming error:', error);
       updateMessage(activeConvId, assistantId, {
-        content: "Câline, y'a eu un pépin. Vérifie qu'Ollama roule ou que ta clé DeepSeek est bonne.",
+        content: "Oops, something went wrong. Check if Ollama is running or your DeepSeek key is correct.",
         streaming: false,
         source: 'error'
       });
@@ -174,7 +174,7 @@ export default function ChatLayout({ user }: ChatLayoutProps) {
         <div className="topbar h-[51px] px-[21px] flex items-center justify-between border-b border-border-parlons bg-[rgba(44,26,14,.88)] backdrop-blur-xl shrink-0 z-50">
           <div className="flex items-center gap-[11px]">
             <div className="tb-title font-playfair text-[13.5px] italic text-text-muted">
-              {activeConv?.messages.length ? activeConv.title : "Nouvelle jasette"}
+              {activeConv?.messages.length ? activeConv.title : "New chat"}
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -192,15 +192,15 @@ export default function ChatLayout({ user }: ChatLayoutProps) {
                 🍁
                 <div className="absolute inset-[4px] border border-[rgba(201,168,76,.18)] rounded-[10px]" />
               </div>
-              <div className="wtitle font-playfair text-[29px] font-black text-gold mb-[6px]">Allô, toé!</div>
-              <div className="wsub font-barlow-cond text-[12px] tracking-[3px] text-text-dim uppercase mb-[26px]">Dis-moé queq&apos;chose — chu là</div>
+              <div className="wtitle font-playfair text-[29px] font-black text-gold mb-[6px]">Hey there!</div>
+              <div className="wsub font-barlow-cond text-[12px] tracking-[3px] text-text-dim uppercase mb-[26px]">Say something — I&apos;m here</div>
               
               <div className="starters grid grid-cols-1 md:grid-cols-2 gap-[9px] max-w-[510px] w-full">
                 {[
-                  { icon: '🍽️', title: 'Meilleures places à Montréal', sub: 'Restos, cafés, bouffe de rue', prompt: "C'est quoi les meilleures places pour manger à Montréal?" },
-                  { icon: '🤖', title: "L'IA expliquée en joual", sub: 'Simple pis clair, pas de chichi', prompt: "Explique-moé c'est quoi l'intelligence artificielle en joual" },
-                  { icon: '✍️', title: 'Écrire un courriel pro', sub: 'En bon québécois correct', prompt: "Aide-moé à écrire un courriel professionnel en français québécois" },
-                  { icon: '💡', title: 'Idées de business au Québec', sub: 'Pour partir à son compte', prompt: "Donne-moé des idées de business à lancer au Québec avec pas beaucoup d'argent" }
+                  { icon: '🍽️', title: 'Best spots in Montreal', sub: 'Restaurants, cafes, street food', prompt: "What are the best places to eat in Montreal?" },
+                  { icon: '🤖', title: "AI explained the local way", sub: 'Simple and clear, no jargon', prompt: "Explain what AI is in a simple way" },
+                  { icon: '✍️', title: 'Write a pro email', sub: 'In correct Quebec English', prompt: "Help me write a professional email in Quebec-style English" },
+                  { icon: '💡', title: 'Business ideas in Quebec', sub: 'To start your own thing', prompt: "Give me some low-cost business ideas to start in Quebec" }
                 ].map((s, i) => (
                   <div 
                     key={i} 

@@ -52,11 +52,11 @@ export const PaywallModal: React.FC<PaywallModalProps> = ({ isOpen, onClose }) =
           </div>
 
           <h2 className="font-playfair text-[26px] font-black text-gold mb-3 leading-tight">
-            T&apos;as jasé pas mal pour aujourd&apos;hui!
+            You&apos;ve chatted quite a bit today!
           </h2>
           
           <p className="font-barlow text-[14.5px] text-text-muted mb-8 leading-relaxed max-w-[320px]">
-            La version gratuite est limitée à 20 messages par jour. Passe à la vitesse supérieure pour jaser sans limite.
+            The free version is limited to 20 messages per day. Upgrade to keep the conversation going without limits.
           </p>
 
           <div className="w-full space-y-4 mb-10 text-left">
@@ -65,8 +65,8 @@ export const PaywallModal: React.FC<PaywallModalProps> = ({ isOpen, onClose }) =
                 <Zap size={10} className="text-gold" strokeWidth={3} />
               </div>
               <div>
-                <div className="text-[13px] font-bold text-text-main">Messages Illimités</div>
-                <div className="text-[11px] text-text-dim font-barlow-cond uppercase tracking-wider">Jase sans arrêt, 24/7</div>
+                <div className="text-[13px] font-bold text-text-main">Unlimited Messages</div>
+                <div className="text-[11px] text-text-dim font-barlow-cond uppercase tracking-wider">Chat non-stop, 24/7</div>
               </div>
             </div>
 
@@ -75,8 +75,8 @@ export const PaywallModal: React.FC<PaywallModalProps> = ({ isOpen, onClose }) =
                 <Trophy size={10} className="text-gold" strokeWidth={3} />
               </div>
               <div>
-                <div className="text-[13px] font-bold text-text-main">Modèle DeepSeek-V3</div>
-                <div className="text-[11px] text-text-dim font-barlow-cond uppercase tracking-wider">Le cerveau le plus puissant</div>
+                <div className="text-[13px] font-bold text-text-main">DeepSeek-V3 Model</div>
+                <div className="text-[11px] text-text-dim font-barlow-cond uppercase tracking-wider">The most powerful brain</div>
               </div>
             </div>
 
@@ -85,8 +85,8 @@ export const PaywallModal: React.FC<PaywallModalProps> = ({ isOpen, onClose }) =
                 <ShieldCheck size={10} className="text-gold" strokeWidth={3} />
               </div>
               <div>
-                <div className="text-[13px] font-bold text-text-main">Soutenir le Québec</div>
-                <div className="text-[11px] text-text-dim font-barlow-cond uppercase tracking-wider">Aide une IA locale à grandir</div>
+                <div className="text-[13px] font-bold text-text-main">Support Quebec AI</div>
+                <div className="text-[11px] text-text-dim font-barlow-cond uppercase tracking-wider">Help a local AI grow</div>
               </div>
             </div>
           </div>
@@ -95,7 +95,7 @@ export const PaywallModal: React.FC<PaywallModalProps> = ({ isOpen, onClose }) =
             onClick={handleSubscribe}
             className="w-full h-14 bg-gold hover:bg-gold-l text-bark font-barlow-cond text-[14px] font-bold tracking-[2px] uppercase rounded-[12px] shadow-[0_4px_15px_rgba(201,168,76,0.3)] transition-all active:scale-[0.98] flex items-center justify-center gap-3 group"
           >
-            Passer Premium — 9.99$/mois
+            Go Premium — $9.99/mo
           </button>
           
           <button 
