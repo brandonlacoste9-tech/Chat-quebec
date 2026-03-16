@@ -1,11 +1,17 @@
 import { neon } from '@neondatabase/serverless';
+
 const databaseUrl = process.env.DATABASE_URL;
 
-export const sql = neon(databaseUrl || 'postgresql://placeholder:5432/db');
-
-if (!databaseUrl && process.env.NODE_ENV === 'production') {
-  console.warn('⚠️ DATABASE_URL is not set in production!');
-}
+// Create an 'sql' object that only initializes the real neon client if the URL is present.
+// This prevents the neon() function from throwing a validation error at build time.
+export const sql = databaseUrl 
+  ? neon(databaseUrl) 
+  : ((strings: any, ...values: any[]) => {
+      if (process.env.NODE_ENV === 'production') {
+        console.error('❌ Query attempted in production but DATABASE_URL is missing!');
+      }
+      return Promise.resolve([]);
+    }) as any;
 
 /**
  * SCHEMA DE LA BASE DE DONNÉES (À copier dans la console Neon)
