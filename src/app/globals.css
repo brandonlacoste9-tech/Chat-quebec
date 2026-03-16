@@ -47,9 +47,7 @@ body {
   background: var(--bark);
   color: var(--text-main);
   font-family: var(--font-barlow), sans-serif;
-  height: 100dvh;
-  display: flex;
-  overflow: hidden;
+  min-height: 100vh;
   -webkit-font-smoothing: antialiased;
 }
 
