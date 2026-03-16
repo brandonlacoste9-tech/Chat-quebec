@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import typography from '@tailwindcss/typography';
 
 export default {
   content: [
@@ -9,15 +10,35 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-        quebec: {
-          blue: "#003DA5",
-          gold: "#FFD700",
-          dark: "#0f172a",
-          light: "#f8fafc",
-          accent: "#2563eb",
+        cognac: {
+          DEFAULT: "var(--cognac)",
+          l: "var(--cognac-l)",
         },
+        gold: {
+          DEFAULT: "var(--gold)",
+          l: "var(--gold-l)",
+          d: "var(--gold-d)",
+        },
+        bark: {
+          DEFAULT: "var(--bark)",
+          l: "var(--bark-l)",
+          ll: "var(--bark-ll)",
+          mid: "var(--bark-mid)",
+        },
+        text: {
+          main: "var(--text-main)",
+          muted: "var(--text-muted)",
+          dim: "var(--text-dim)",
+        },
+        border: {
+          parlons: "var(--border-parlons)",
+          hot: "var(--border-hot)",
+        },
+      },
+      fontFamily: {
+        playfair: ["'Playfair Display'", "serif"],
+        barlow: ["'Barlow'", "sans-serif"],
+        "barlow-cond": ["'Barlow Condensed'", "sans-serif"],
       },
       animation: {
         respiration: "respiration 3s ease-in-out infinite",
@@ -30,5 +51,7 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    typography,
+  ],
 } satisfies Config;

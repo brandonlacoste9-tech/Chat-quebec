@@ -1,83 +1,86 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Message } from '@/types/chat';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { Copy, Check, ThumbsUp, ThumbsDown, RotateCw } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface MessageBubbleProps {
     message: Message;
-    agentName: string;
-    onFeedback?: (type: 'up' | 'down') => void;
-    onRegenerate?: () => void;
+    // Parlons specific props
 }
 
-export const MessageBubble: React.FC<MessageBubbleProps> = ({ message, agentName, onFeedback, onRegenerate }) => {
+export const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
     const isUser = message.role === 'user';
-    const [copied, setCopied] = useState(false);
-
-    const handleCopy = () => {
-        navigator.clipboard.writeText(message.content);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-    };
 
     return (
         <div className={cn(
-            "group flex flex-col max-w-[800px] mx-auto w-full px-4 animate-in fade-in slide-in-from-top-2 duration-300",
-            isUser ? "items-end" : "items-start"
+            "msg mb-[23px] flex gap-[12px] items-start animate-in fade-in slide-in-from-bottom-2 duration-300",
+            isUser ? "flex-row-reverse" : "flex-row"
         )}>
-            {/* Header label - minimalist */}
-            {!isUser && (
-                <div className="flex items-center gap-2 mb-1.5 px-0.5">
-                    <span className="text-[10px] font-bold text-white/50 uppercase tracking-widest">{agentName}</span>
-                    <span className="text-[10px] text-white/20 font-medium">{message.time}</span>
-                </div>
-            )}
-
-            {/* Bubble content */}
             <div className={cn(
-                "relative max-w-[85%] text-[15.5px] leading-relaxed transition-all",
-                isUser
-                    ? "bg-qblue text-white px-5 py-3 rounded-2xl rounded-tr-sm shadow-sm"
-                    : "bg-[#1a1a1a] text-white/90 px-6 py-4 rounded-3xl rounded-tl-sm border border-white/5 shadow-sm"
+                "mav w-[31px] h-[31px] rounded-[7px] flex items-center justify-center shrink-0 mt-px font-playfair text-[13px] font-bold shadow-sm",
+                isUser ? "u bg-cognac border-[1.5px] border-gold-d text-gold-l" : "a bg-gold border-[1.5px] border-gold-l text-bark"
             )}>
-                {message.role === 'assistant' ? (
-                    <div className="prose prose-invert max-w-none prose-p:my-0 prose-pre:bg-[#0d0d0d] prose-pre:border prose-pre:border-white/5 prose-code:text-accent prose-code:bg-white/5 prose-code:px-1 prose-code:rounded">
-                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                            {message.content}
-                        </ReactMarkdown>
-                    </div>
-                ) : (
-                    <p className="whitespace-pre-wrap">{message.content}</p>
-                )}
-
-                {/* Cursor for streaming */}
-                {message.streaming && (
-                    <span className="inline-block w-2 h-4 bg-white/40 ml-1 animate-pulse align-middle" />
-                )}
+                {isUser ? 'M' : 'P'}
             </div>
-
-            {/* Actions for assistant messages */}
-            {!isUser && !message.streaming && message.content.length > 0 && (
-                <div className="flex items-center gap-3 mt-2 px-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button onClick={handleCopy} className="p-1 text-white/30 hover:text-white transition-all">
-                        {copied ? <Check size={14} className="text-success" /> : <Copy size={14} />}
-                    </button>
-                    <div className="flex items-center gap-1.5 border-l border-white/5 pl-2">
-                        <button onClick={() => onFeedback?.('up')} className={cn("p-1 transition-all", message.feedback === 'up' ? "text-success" : "text-white/30 hover:text-white")}>
-                            <ThumbsUp size={14} />
-                        </button>
-                        <button onClick={() => onFeedback?.('down')} className={cn("p-1 transition-all", message.feedback === 'down' ? "text-danger" : "text-white/30 hover:text-white")}>
-                            <ThumbsDown size={14} />
-                        </button>
-                    </div>
+            
+            <div className={cn(
+                "mbody flex-1 min-w-0 flex flex-col",
+                isUser ? "items-end" : "items-start"
+            )}>
+                <div className={cn(
+                    "mwho font-barlow-cond text-[10px] tracking-[2px] uppercase mb-[5px] flex items-center gap-[6px]",
+                    isUser ? "u text-cognac-l" : "a text-gold"
+                )}>
+                    {!isUser && (
+                        <>
+                            <span>Parlons</span>
+                            {message.source && (
+                                <span className={cn(
+                                    "msrc text-[8px] tracking-[1px] p-[1px_5px] rounded-[3px]",
+                                    message.source === 'ollama' ? "ollama text-[#4ade80] bg-[rgba(74,222,128,.1)] border border-[rgba(74,222,128,.2)]" :
+                                    message.source === 'deepseek' ? "deepseek text-[#60a5fa] bg-[rgba(96,165,250,.1)] border border-[rgba(96,165,250,.2)]" :
+                                    "err text-[#f87171] bg-[rgba(248,113,113,.1)] border border-[rgba(248,113,113,.2)]"
+                                )}>
+                                    {message.source === 'ollama' ? '🦙 ollama' : message.source === 'deepseek' ? '🌊 deepseek' : '⚠️ erreur'}
+                                </span>
+                            )}
+                        </>
+                    )}
+                    {isUser && <span>Toé</span>}
+                    <span className="mtime text-text-dim text-[9px] tracking-[0.5px] font-barlow lowercase font-normal">{message.time}</span>
                 </div>
-            )}
+
+                <div className={cn(
+                    "mtxt text-[14.5px] leading-[1.78] font-light min-w-0",
+                    isUser 
+                        ? "u bg-[rgba(139,69,19,.13)] border border-[rgba(139,69,19,.22)] p-[11px_15px] rounded-[3px_13px_13px_13px] text-text-main font-normal" 
+                        : "a text-text-main"
+                )}>
+                    {isUser ? (
+                        <p className="whitespace-pre-wrap">{message.content}</p>
+                    ) : (
+                        <div className="prose prose-invert max-w-none prose-p:mb-[10px] last:prose-p:mb-0 prose-strong:text-gold-l prose-strong:font-semibold prose-code:bg-bark-ll prose-code:border prose-code:border-border-parlons prose-code:p-[1px_6px] prose-code:rounded-[4px] prose-code:text-[12px] prose-code:text-gold-l">
+                            {message.streaming && !message.content ? (
+                                <div className="dots flex gap-[5px] py-[3px] items-center">
+                                    <span className="w-[6px] h-[6px] rounded-full bg-gold opacity-40 animate-pulse" />
+                                    <span className="w-[6px] h-[6px] rounded-full bg-gold opacity-40 animate-pulse delay-75" />
+                                    <span className="w-[6px] h-[6px] rounded-full bg-gold opacity-40 animate-pulse delay-150" />
+                                </div>
+                            ) : (
+                                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                    {message.content}
+                                </ReactMarkdown>
+                            )}
+                        </div>
+                    )}
+                    {message.streaming && message.content && (
+                        <span className="inline-block w-2 h-4 bg-gold-l/40 ml-1 animate-pulse align-middle" />
+                    )}
+                </div>
+            </div>
         </div>
     );
 };

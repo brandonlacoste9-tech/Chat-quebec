@@ -13,6 +13,7 @@ export interface Message {
   content: string;
   time: string;
   streaming?: boolean;
+  source?: 'ollama' | 'deepseek' | 'error';
   feedback?: "up" | "down" | null;
   metadata?: Record<string, any>;
 }
