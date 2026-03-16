@@ -33,6 +33,7 @@ interface User {
 
 export const authOptions = {
   adapter: NeonAdapter(getPool() as any),
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     EmailProvider({
       from: process.env.EMAIL_FROM || 'Parlons <noreply@parlons.ca>',
