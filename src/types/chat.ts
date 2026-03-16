@@ -16,6 +16,7 @@ export interface Message {
   source?: 'ollama' | 'deepseek' | 'error';
   feedback?: "up" | "down" | null;
   metadata?: Record<string, any>;
+  image?: string;
 }
 
 export interface Conversation {

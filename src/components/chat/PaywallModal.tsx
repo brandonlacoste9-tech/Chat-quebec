@@ -6,12 +6,22 @@ import { X, Trophy, Zap, ShieldCheck } from 'lucide-react';
 interface PaywallModalProps {
   isOpen: boolean;
   onClose: () => void;
+  user: {
+    id: string;
+    email: string;
+    isGuest?: boolean;
+  };
 }
 
-export const PaywallModal: React.FC<PaywallModalProps> = ({ isOpen, onClose }) => {
+export const PaywallModal: React.FC<PaywallModalProps> = ({ isOpen, onClose, user }) => {
   if (!isOpen) return null;
 
   const handleSubscribe = async () => {
+    if (user.isGuest) {
+      window.location.href = '/login';
+      return;
+    }
+    
     try {
       const response = await fetch('/api/checkout', {
         method: 'POST',

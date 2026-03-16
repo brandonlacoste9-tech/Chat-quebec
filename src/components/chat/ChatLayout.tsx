@@ -7,6 +7,7 @@ import { ChatInput } from '@/components/chat/ChatInput';
 import { PaywallModal } from '@/components/chat/PaywallModal';
 import { useChatStore } from '@/lib/store';
 import { Message } from '@/types/chat';
+import { incrementCount, isLimitReached } from '@/lib/usage';
 
 interface ChatLayoutProps {
   user: {
@@ -14,6 +15,7 @@ interface ChatLayoutProps {
     email: string;
     plan: string;
     stripeCustomerId?: string;
+    isGuest?: boolean;
   };
 }
 
@@ -65,15 +67,20 @@ export default function ChatLayout({ user }: ChatLayoutProps) {
     pingOllama();
   }, []);
 
-  const handleSend = useCallback(async (text: string, image?: string) => {
+  const handleSend = useCallback(async (content: string, image?: string) => {
     if (!activeConvId) return;
 
+    if (user.plan === 'free' && isLimitReached()) {
+      setIsPaywallOpen(true);
+      return;
+    }
 
     const userMsg: Message = {
       id: Math.random().toString(36).substr(2, 9),
       role: 'user',
-      content: text,
+      content,
       time: new Date().toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit' }),
+      image,
     };
 
     addMessage(activeConvId, userMsg);
@@ -115,6 +122,8 @@ export default function ChatLayout({ user }: ChatLayoutProps) {
       }
 
       if (!response.ok) throw new Error('Failed to fetch');
+
+      incrementCount();
 
       // Detect source from header
       const source = response.headers.get('X-Source') as 'ollama' | 'deepseek' | null;
@@ -159,7 +168,7 @@ export default function ChatLayout({ user }: ChatLayoutProps) {
     } finally {
       setIsStreaming(false);
     }
-  }, [activeConvId, addMessage, updateMessage, setIsStreaming, conversations, activeAgent, user.email]);
+  }, [activeConvId, addMessage, updateMessage, setIsStreaming, conversations, activeAgent, user.email, user.plan]);
 
   const activeConv = conversations.find(c => c.id === activeConvId);
   const showWelcome = !activeConv || activeConv.messages.length === 0;
@@ -167,7 +176,11 @@ export default function ChatLayout({ user }: ChatLayoutProps) {
   return (
     <div className="flex h-screen w-full bg-bark overflow-hidden select-none">
       <Sidebar user={user} />
-      <PaywallModal isOpen={isPaywallOpen} onClose={() => setIsPaywallOpen(false)} />
+      <PaywallModal 
+        isOpen={isPaywallOpen} 
+        onClose={() => setIsPaywallOpen(false)} 
+        user={user}
+      />
       
       <main className="flex-1 flex flex-col min-w-0 relative">
         {/* Topbar */}

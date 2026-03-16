@@ -1,9 +1,8 @@
 import NextAuth, { DefaultSession, Session, getServerSession } from 'next-auth'
-import EmailProvider from 'next-auth/providers/email'
+import GoogleProvider from 'next-auth/providers/google'
 import NeonAdapter from '@auth/neon-adapter'
 import { Pool, neonConfig } from '@neondatabase/serverless'
 import ws from 'ws'
-import { sendVerificationRequest } from '@/lib/email'
 
 neonConfig.webSocketConstructor = ws
 
@@ -24,21 +23,14 @@ declare module "next-auth" {
   }
 }
 
-interface User {
-  id: string;
-  email: string;
-  plan?: string;
-  stripe_customer?: string;
-}
-
 export const authOptions = {
   // Only add adapter if we have a real database URL
   ...(process.env.DATABASE_URL ? { adapter: NeonAdapter(getPool() as any) } : {}),
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
-    EmailProvider({
-      from: process.env.EMAIL_FROM || 'Parlons <noreply@parlons.ca>',
-      sendVerificationRequest,
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     })
   ],
   callbacks: {
@@ -53,10 +45,9 @@ export const authOptions = {
   },
   pages: {
     signIn: '/login',
-    verifyRequest: '/check-email',
-    error: '/login', // Redirect back to login on error
+    error: '/login',
   },
-  debug: process.env.NODE_ENV === 'development' || true, // Enable debug to see Vercel logs
+  debug: process.env.NODE_ENV === 'development',
 }
 
 const handler = NextAuth(authOptions)
