@@ -1,10 +1,11 @@
 import { neon } from '@neondatabase/serverless';
+const databaseUrl = process.env.DATABASE_URL;
 
-if (!process.env.DATABASE_URL) {
-  throw new Error('DATABASE_URL is not set');
+export const sql = neon(databaseUrl || 'postgresql://placeholder:5432/db');
+
+if (!databaseUrl && process.env.NODE_ENV === 'production') {
+  console.warn('⚠️ DATABASE_URL is not set in production!');
 }
-
-export const sql = neon(process.env.DATABASE_URL);
 
 /**
  * SCHEMA DE LA BASE DE DONNÉES (À copier dans la console Neon)

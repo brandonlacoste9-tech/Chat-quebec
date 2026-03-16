@@ -3,6 +3,7 @@ import OpenAI from "openai";
 import { sql } from "@/lib/db";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY;
 const OLLAMA_URL = process.env.OLLAMA_URL || "http://localhost:11434/api/generate";
