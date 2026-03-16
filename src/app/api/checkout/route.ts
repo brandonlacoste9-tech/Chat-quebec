@@ -1,9 +1,7 @@
 import { NextResponse } from 'next/server';
 export const dynamic = "force-dynamic";
-import Stripe from 'stripe';
+import { stripe } from '@/lib/stripe';
 import { auth } from '@/app/api/auth/[...nextauth]/route';
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export async function POST() {
   const session = await auth();

@@ -1,6 +1,20 @@
 import { Resend } from 'resend';
+const getResend = () => {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    return {
+      emails: {
+        send: async () => {
+          console.error("❌ Resend API key is missing!");
+          return { data: null, error: new Error("Missing API key") };
+        }
+      }
+    } as any;
+  }
+  return new Resend(apiKey);
+};
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = getResend();
 
 interface VerificationRequestParams {
   identifier: string;
