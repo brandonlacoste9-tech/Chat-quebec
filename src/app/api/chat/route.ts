@@ -8,10 +8,36 @@ export const dynamic = "force-dynamic";
 const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY;
 const OLLAMA_URL = process.env.OLLAMA_URL || "http://localhost:11434/api/generate";
 
-const openai = new OpenAI({
-  apiKey: DEEPSEEK_API_KEY,
-  baseURL: "https://api.deepseek.com",
-});
+const getOpenAI = () => {
+  const apiKey = process.env.DEEPSEEK_API_KEY;
+  if (!apiKey) {
+    // Return a proxy that warns when called, to avoid crashing module evaluation during build
+    return new Proxy({}, {
+      get: (target, prop) => {
+        if (prop === 'chat') {
+           return {
+             completions: {
+               create: async () => {
+                 console.error("❌ DeepSeek API key is missing!");
+                 throw new Error("Missing DeepSeek API key");
+               }
+             }
+           };
+        }
+        return () => {
+          console.error("❌ DeepSeek API key is missing!");
+          throw new Error("Missing DeepSeek API key");
+        };
+      }
+    }) as unknown as OpenAI;
+  }
+  return new OpenAI({
+    apiKey,
+    baseURL: "https://api.deepseek.com",
+  });
+};
+
+const openai = getOpenAI();
 
 export async function POST(req: NextRequest) {
   try {
