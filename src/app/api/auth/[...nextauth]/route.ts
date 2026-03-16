@@ -1,4 +1,4 @@
-import NextAuth, { DefaultSession, Session } from 'next-auth'
+import NextAuth, { DefaultSession, Session, getServerSession } from 'next-auth'
 import EmailProvider from 'next-auth/providers/email'
 import NeonAdapter from '@auth/neon-adapter'
 import { Pool, neonConfig } from '@neondatabase/serverless'
@@ -6,7 +6,12 @@ import ws from 'ws'
 import { sendVerificationRequest } from '@/lib/email'
 
 neonConfig.webSocketConstructor = ws
-const pool = new Pool({ connectionString: process.env.DATABASE_URL })
+
+// Lazy pool creation to avoid build-time errors
+const getPool = () => {
+  const connectionString = process.env.DATABASE_URL;
+  return new Pool({ connectionString: connectionString || 'postgresql://placeholder:5432/db' });
+}
 
 // Extend the built-in session types
 declare module "next-auth" {
@@ -26,8 +31,8 @@ interface User {
   stripe_customer?: string;
 }
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: NeonAdapter(pool),
+export const authOptions = {
+  adapter: NeonAdapter(getPool() as any),
   providers: [
     EmailProvider({
       from: process.env.EMAIL_FROM || 'Parlons <noreply@parlons.ca>',
@@ -35,7 +40,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     })
   ],
   callbacks: {
-    session({ session, user }: { session: Session; user: User }) {
+    session({ session, user }: { session: Session; user: any }) {
       if (session.user) {
         session.user.id = user.id
         session.user.plan = user.plan ?? 'free'
@@ -48,6 +53,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     signIn: '/login',
     verifyRequest: '/check-email',
   }
-})
+}
 
-export const { GET, POST } = handlers
+const handler = NextAuth(authOptions)
+
+export { handler as GET, handler as POST }
+
+// Compatibility auth() function for v5-style calls used in the app
+export const auth = () => getServerSession(authOptions)
