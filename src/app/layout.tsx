@@ -1,13 +1,17 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Providers from "./Providers";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   title: "Québec AI OS — Le Chat GPT Souverain du Québec",
   description: "Québec AI OS est l'alternative souveraine à ChatGPT et Gemini au Québec. IA en français (fr-CA) experte en fiscalité, immigration et éducation québécoise. Conforme Loi 25.",
   keywords: ["IA Québec", "Souveraineté numérique", "Chat GPT Québec", "Loi 25", "Revenu Québec IA", "Fiscalité Québec", "Immigration Québec", "PEQ", "CSQ"],
   authors: [{ name: "Québec AI OS" }],
-  viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",
 };
 
